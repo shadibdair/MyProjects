@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body {
+            background-image: url(https://data.arab48.com/data/news/2015/06/12/1159877/1434107179958417.jpg);
+            background-size:auto;
+            
+        }
+        
+
+        /*זה העיצוב של ה מחשבון עצמו*/
+        #main {
+            transform: scale(1);/*מגדיל את המחשבון*/
+            background-color: #8c35a1;/*הצבע של הרקע של המחשבון*/
+            border-radius: 15px;/*עובד על הזוויות של החשבון מהצדדים*/
+            box-shadow: 0px 0px 15px 10px #ffffff;/*הצל שאני קובע את הצבע וגם הגודל*/
+            height: 380px;/*אורך של המחשבון*/
+            margin: auto;/*מעמיד את רוחב של המחשבון באמצע*/
+            position: absolute;/*מעמיד את האורך של המחשבון באמצע */
+            text-align: center;/*שם את הטקסט באמצע המחשבון דרא סינטר*/
+            width: 300px;/*הרוחב של המחשבון*/
+            top: 0;
+            left: 0;
+            right:0;
+            bottom: 0;
+        }
+        /*המסך שמופיע ה פתרון*/
+        #result {
+            background-color: #ffffff;
+            border-radius: 5px;
+            color: #333300;
+            font-size: 1.375em;
+            height: 50px;
+            margin: auto;
+            margin-bottom: 0.5625em; /*was 12px*/
+            width: 250px;
+            text-align: right; /*פה הערכתי שהחישובים וכל מה שיופיע על מסך יתחיל מצד ימין*/
+            vertical-align: bottom; /*המאפיין  יישור אנכי קובע את היישור האנכי של אלמנט*/
+            padding: 3px 4px;
+            word-wrap: break-word; /*אני מגדיר פה שלא יחרוג את המסך של ה תוצאות אם במקרה נרשם הרבה מספרים לשמור להיות בתוך המסך*/
+            overflow: auto; /*אם רושמים כל מנה מספרים ארוכים שיעשה אפשרות לראות את המספרים ולא יגזור אותם*/
+            text-overflow: ellipsis;
+        }
+
+        .btn {
+            background-color: #465190;
+            border: none;
+            border-radius: 5px; /*משנה בזוויות של הכפתור */
+            color: #4cff00;
+            font-family: "Comfortaa", sans-serif;
+            font-size: 1.25em;
+            height: 40px;
+            margin-top: 0.28125em; /* was 6px */
+            margin-right: 0.09375em; /* was 2px */
+            width: 60px;
+        }
+             
+             /*שייך לכפתורים בזמן שלוחצים עליו  הגדרתי איך להזיז בזמן שאתה לוץ*/
+            .btn:active {
+                transform: translateX(1px) translateY(1px);
+            }
+
+            /*the calculator by shadi*/
+        #toplabel {
+            color: #ffffff;
+            /*     משפחת הגופן the calculator by shadi כותב את המשפט בסגנונן שאני רוצה */
+            font-family: Tahoma, sans-serif;
+            font-size: 1.35em;
+        }
+
+        
+
+    </style>
+</head>
+<body>
+    <!-- div id="mainפה אני קורא ל" -->
+    <div id="main">
+        <p id="toplabel"><b>This Calculator By Shadi ;)</b></p>
+        <div id="result">0</div>
+        <button class="btn" value="AC" onclick="getKey(this.value)">AC</button>
+        <button class="btn" value="CE" onclick="getKey(this.value)">CE</button>
+        <button class="btn" value="equals" onclick="getKey(this.value)">=</button>
+        <button class="btn" value="*" onclick="getKey(this.value)">&times;</button>
+        <button class="btn" value="7" onclick="getKey(this.value)">7</button>
+        <button class="btn" value="8" onclick="getKey(this.value)">8</button>
+        <button class="btn" value="9" onclick="getKey(this.value)">9</button>
+        <button class="btn" value="+" onclick="getKey(this.value)">+</button>
+        <button class="btn" value="4" onclick="getKey(this.value)">4</button>
+        <button class="btn" value="5" onclick="getKey(this.value)">5</button>
+        <button class="btn" value="6" onclick="getKey(this.value)">6</button>
+        <button class="btn" value="-" onclick="getKey(this.value)">-</button>
+        <button class="btn" value="1" onclick="getKey(this.value)">1</button>
+        <button class="btn" value="2" onclick="getKey(this.value)">2</button>
+        <button class="btn" value="3" onclick="getKey(this.value)">3</button>
+        <button class="btn" value="/" onclick="getKey(this.value)">&divide;</button>
+        <button class="btn" value="0" onclick="getKey(this.value)">0</button>
+        <button class="btn" value="." onclick="getKey(this.value)">.</button>
+
+    </div>
+
+
+
+    <script>
+        /*RESULTהוואר הראשון הוא של המסך  וכל פעם שלוחצים על הכפתורים מופיע על המסך שקוראים לו */
+        /*התראה על הערך של האפשרות שנבחרה ברשימה נפתחת:*/
+        var calcDisplay = (input) => document.getElementById("result").innerHTML = input;
+        var getDisplay = () => document.getElementById("result").innerHTML;
+
+        var getKey = (value) => {
+           
+            /*equals מתעסק בתוצאה שיוצאת מהחיבור או חיסור או או או*/
+            if (value == "equals")
+            {
+                //תנאי במקרה של חלוקה ב - 0 שיציג Error 
+                if (getDisplay() == "Infinity") {
+                    calcDisplay("Erorr");
+                    alert(calcDisplay("Erorr"));
+                }
+                else
+                calcEquals();
+            }
+            
+                /* אם לוחצים עלין  יופיע לך מספר 0 מתחיל מחדשAC ב*/
+             else if (value == "AC") {
+                //ברור
+                calcDisplay("0");
+            } else if (value == "CE") {
+                //הסר ספרות אחרונות או אופרטור      LENGTH-אורך
+                if (getDisplay().length < 2) {
+                    calcDisplay("0");
+                } else {
+                    //slice-לחתוך
+                    calcDisplay(getDisplay().slice(0, -1));
+                }
+            } else if (value == "/" || value == "*") {
+                //   דרושה עבור כמה חישובים לעבוד כראוי מנע כניסה כפולה של המפעילים לעיל
+                noDoubleOps(value);
+            } else if (value == "-" || value == "+") {
+                // דרושה עבור כמה חישובים לעבוד כראוי מנע כניסה משולשת של המפעילים לעיל
+                noTripleOps(value);
+            } else if (value == ".") {
+                //אם אני רושם במחשבון פעמיים (..)לא נותן לי לבצע שתי נקודות מנע כניסה כפולה של עשרוני
+                if (getDisplay().slice(-1) == ".") {
+                    calcDisplay(getDisplay());
+                } else {
+                    calcDisplay(getDisplay() + ".");
+                }
+            } else {
+                if (getDisplay() == "0") {
+                    calcDisplay(value);
+                } else {
+                    calcDisplay(getDisplay() + value);
+                }
+            }
+        };
+
+        /* חישובים של השווה */
+        var calcEquals = () => {
+          
+            //החלף "-" עם "+", בהנחה שהמשתמש רוצה לחסר מספר שלילי שצוין למשל. 5 - (- 3) = 8
+            var x = getDisplay().replace(/\-{2,}/g, "+");
+            //החלף "+ +" עם אופרטור "+", בהנחה שהמשתמש ירצה להוסיף מספר חיובי , לדוגמה. 5 + (+ 3) = 8
+            x = x.replace(/\+{2,}/g, "+");
+            if (getDisplay()) {
+                calcDisplay(eval(x));
+            } else {
+                calcDisplay("0");
+            }
+        };
+
+        var noDoubleOps = (value) => {
+            var lastChar = getDisplay()[getDisplay().length - 1];
+            //למנוע הוספה של "/" או אופרטור "*" נוסף לביטוי אם התו האחרון במחרוזת הוא אחד מהבאים
+            //פה אני לא יכול לעשות מספר כפל כפל נותן לי לרשום רק פעם אחד ...אותו סיפור עם חילוק
+            if (lastChar == "/" || lastChar == "*" || lastChar == "-" || lastChar == "+") {
+                calcDisplay(getDisplay());
+            } else {
+                switch (value == "/" || value == "*") {
+                    case (value == "/"):
+                        calcDisplay(getDisplay() + "/");
+                        break;
+                    case (value == "*"):
+                        calcDisplay(getDisplay() + "*");
+                        break;
+                }
+            }
+        };
+
+        /*    - + בלי הפוקציה הזאת לא יכולים לבצע   */
+        var noTripleOps = (value) => {
+            var lastChars = getDisplay().slice(-2);
+            //למנוע הוספה של "-" או "+" אופרטור להביע אם האחרון שני תווים הם אחד מהבאים
+            //נותן אפשרות אם אני אעשה מספר שלילי ומספר חיובי ביחד מבצע אותו  כדוגמה -2+3
+            if (lastChars == "--" || lastChars == "-+" || lastChars == "++" || lastChars == "+-") {
+                calcDisplay(getDisplay());
+            } else {
+                switch (value == "-" || value == "+") {
+                    case (value == "-"):
+                        calcDisplay(getDisplay() + "-");
+                        break;
+                    case (value == "+"):
+                        calcDisplay(getDisplay() + "+");
+                        break;
+                }
+            }
+        };
+
+
+    </script>
+</body>
+</html>
