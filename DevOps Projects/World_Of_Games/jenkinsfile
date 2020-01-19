@@ -1,0 +1,27 @@
+pipeline {
+agent any
+    
+    stages {
+        stage('check') {
+            steps {
+                sh 'checkout scm'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'sudo docker build -t w0g .'
+            }
+        }
+        stage('run') {
+            steps {
+                sh 'sudo docker run -d -p 8080:8080 -p 8777:8777 jenkins/jenkins'
+            }
+        }
+        stage('test') {
+            steps {
+                sh 'e2e.py'
+            }
+        }
+    }
+    
+}
