@@ -1,0 +1,35 @@
+# Download docker-compose.yaml file using cUrl (or just download)
+curl -O https://raw.githubusercontent.com/Dgotlieb/K8S-Kompose/master/docker-compose.yml
+
+# Convert your Docker Compose file to Kubernetes:
+kompose convert 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| INFO We are going to create Kubernetes Deployments, Services and PersistentVolumeClaims for your Dockerized application. If you need different kind of resources, use the 'kompose convert' and 'kubectl create -f' commands instead.            
+|                                                                                                                                                                                                                                   
+| |INFO Deploying application in "default" namespace
+| INFO Successfully created Service: frontend
+| INFO Successfully created Service: redis-master
+| INFO Successfully created Service: redis-node
+| INFO Successfully created Deployment: frontend
+| INFO Successfully created Deployment: redis-master
+| INFO Successfully created Deployment: redis-node
+| Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods,pvc' for details.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+# Alternatively, we can convert and deploy directly to Kubernetes with kompose up.
+kompose up
+
+|--------------------------------------------------------------------------------------------------------------------|
+| We are going to create Kubernetes Deployments, Services and PersistentVolumeClaims for your Dockerized application. 
+| If you need different kind of resources, use the 'kompose convert' and 'kubectl create -f' commands instead. 
+|
+| INFO Successfully created Service: redis          
+| INFO Successfully created Service: web            
+| INFO Successfully created Deployment: redis       
+| INFO Successfully created Deployment: web         
+|
+| Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods,pvc' for details.
+|-------------------------------------------------------------------------------------------------------------------|
+
+# Retrieve the service URL
+minikube service frontend --url
