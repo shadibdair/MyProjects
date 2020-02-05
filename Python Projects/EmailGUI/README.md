@@ -1,5 +1,3 @@
-# Welcome to PARADISE ! 
-
 ## PYTHON GUI TO SEND EMAIL WITH MULTIPLE ATTACHMENTS USING smtplib AND email MODULES
 
 ### Simple Mail Transfer Protocol (SMTP) is a protocol, which handles sending e-mail and routing e-mail between mail servers. The smtplib module defines an SMTP client session object that can be used to send mail to any Internet machine with an SMTP or ESMTP listener daemon.
